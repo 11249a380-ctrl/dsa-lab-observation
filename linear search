@@ -1,0 +1,72 @@
+AIM:
+   To search for a given element (key) in an array by checking each element sequentially from the beginning to the end and return its position if found, otherwise indicate that the element is not present.
+ALGORITHM :
+    Input: Array A of size n, element key to search
+Output: Index of key if found, otherwise -1
+
+
+Start
+
+
+Set i = 0
+
+
+Repeat while i < n:
+a. If A[i] == key, return i
+b. Else increment i
+
+
+If the loop ends, return -1 (key not found)
+
+
+Stop
+
+
+Time Complexity:
+
+
+Best case: O(1)
+
+
+Worst case: O(n)
+
+
+Average case: O(n)
+
+
+
+💻 PROGRAM (C Language)
+#include <stdio.h>
+
+int linearSearch(int arr[], int n, int key) {
+    for (int i = 0; i < n; i++) {
+        if (arr[i] == key)
+            return i;   // element found
+    }
+    return -1; // not found
+}
+
+int main() {
+    int n, key;
+
+    printf("Enter size of array: ");
+    scanf("%d", &n);
+
+    int arr[n];
+    printf("Enter %d elements:\n", n);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    printf("Enter element to search: ");
+    scanf("%d", &key);
+
+    int result = linearSearch(arr, n, key);
+
+    if (result == -1)
+        printf("Element not found.\n");
+    else
+        printf("Element found at index %d.\n", result);
+
+    return 0;
+}
