@@ -1,0 +1,119 @@
+AIM
+
+To implement a QUEUE data structure and perform basic operations such as:
+
+ENQUEUE → Insert an element (rear end)
+
+DEQUEUE → Remove an element (front end)
+
+PEEK / FRONT → View the first element
+
+DISPLAY → Show all elements 
+
+ALGORITHM:
+If rear == MAX-1, queue overflow
+
+Else
+
+Increment rear
+
+Insert the element at queue[rear]
+
+If queue was empty, set front = 0
+If rear == MAX-1, queue overflow
+
+Else
+
+Increment rear
+
+Insert the element at queue[rear]
+
+If queue was empty, set front = 0
+
+If queue empty → print “Queue empty”
+
+Else print queue[front]
+
+If queue empty → print
+
+Else print elements from front to rear
+
+PROGRAM:
+
+#include <stdio.h>
+#define MAX 5
+
+int queue[MAX];
+int front = -1, rear = -1;
+
+void enqueue(int x) {
+    if (rear == MAX - 1) {
+        printf("Queue Overflow!\n");
+    } else {
+        if (front == -1) front = 0; 
+        queue[++rear] = x;
+        printf("Enqueued %d\n", x);
+    }
+}
+
+void dequeue() {
+    if (front == -1) {
+        printf("Queue Underflow!\n");
+    } else {
+        printf("Dequeued %d\n", queue[front]);
+        if (front == rear)
+            front = rear = -1;
+        else
+            front++;
+    }
+}
+
+void peek() {
+    if (front == -1)
+        printf("Queue is Empty!\n");
+    else
+        printf("Front element: %d\n", queue[front]);
+}
+
+void display() {
+    if (front == -1) {
+        printf("Queue is Empty!\n");
+    } else {
+        printf("Queue elements: ");
+        for (int i = front; i <= rear; i++)
+            printf("%d ", queue[i]);
+        printf("\n");
+    }
+}
+
+int main() {
+    int choice, value;
+
+    while (1) {
+        printf("\n1.Enqueue 2.Dequeue 3.Peek 4.Display 5.Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter value: ");
+                scanf("%d", &value);
+                enqueue(value);
+                break;
+            case 2:
+                dequeue();
+                break;
+            case 3:
+                peek();
+                break;
+            case 4:
+                display();
+                break;
+            case 5:
+                return 0;
+            default:
+                printf("Invalid Choice!\n");
+        }
+    }
+}
+
