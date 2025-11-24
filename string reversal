@@ -1,0 +1,46 @@
+AIM
+To reverse a given string using simple traversal or using stack principles, and output the reversed string.
+
+ALGORITHM – String Reversal
+Input: A string S of length n
+Output: Reversed string
+
+Start
+Read string S
+Set two variables: left = 0, right = n - 1
+While left < right:
+    a. Swap S[left] and S[right]
+b. Increment left
+c. Decrement right   
+ 
+Print reversed string
+
+Stop
+
+ PROGRAM
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char str[100], temp;
+    int left, right;
+
+    printf("Enter a string: ");
+    gets(str);
+
+    left = 0;
+    right = strlen(str) - 1;
+
+    while (left < right) {
+        temp = str[left];
+        str[left] = str[right];
+        str[right] = temp;
+
+        left++;
+        right--;
+    }
+
+    printf("Reversed string: %s\n", str);
+
+    return 0;
+}
