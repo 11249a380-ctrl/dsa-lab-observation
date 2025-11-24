@@ -1,0 +1,95 @@
+AIM of Stack Using Linked List
+
+"To implement a stack data structure using a linked list and perform stack operations like push, pop, peek, and display."
+
+PROGRAM:
+#include <stdio.h>
+#include <stdlib.h>
+
+// Define the structure of a node in the linked list
+struct Node {
+    int data;          // Data part of the node
+    struct Node* next; // Pointer to the next node
+};
+
+// Function to check if the stack is empty
+int isEmpty(struct Node* top) {
+    return top == NULL;
+}
+
+// Function to push an element onto the stack
+struct Node* push(struct Node* top, int value) {
+    // Allocate memory for new node
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    if (!newNode) {
+        printf("Stack overflow\n");
+        return top;
+    }
+    newNode->data = value;   // Set data
+    newNode->next = top;     // Link new node to previous top
+    top = newNode;           // Update top
+    printf("%d pushed to stack\n", value);
+    return top;
+}
+
+// Function to pop an element from the stack
+struct Node* pop(struct Node* top) {
+    if (isEmpty(top)) {
+        printf("Stack underflow\n");
+        return top;
+    }
+    struct Node* temp = top;     // Store top node
+    printf("%d popped from stack\n", top->data);
+    top = top->next;             // Update top to next node
+    free(temp);                  // Free memory of popped node
+    return top;
+}
+
+// Function to peek at the top element of the stack
+void peek(struct Node* top) {
+    if (isEmpty(top)) {
+        printf("Stack is empty\n");
+    } else {
+        printf("Top element is %d\n", top->data);
+    }
+}
+
+// Function to display all elements in the stack
+void display(struct Node* top) {
+    if (isEmpty(top)) {
+        printf("Stack is empty\n");
+        return;
+    }
+    struct Node* temp = top;
+    printf("Stack elements: ");
+    while (temp != NULL) {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+    printf("\n");
+}
+
+// Main function to test stack operations
+int main() {
+    struct Node* stack = NULL; // Initialize stack as empty
+
+    stack = push(stack, 10);
+    stack = push(stack, 20);
+    stack = push(stack, 30);
+
+    display(stack);
+
+    peek(stack);
+
+    stack = pop(stack);
+    stack = pop(stack);
+
+    display(stack);
+
+    peek(stack);
+
+    stack = pop(stack);
+    stack = pop(stack); // Trying to pop from empty stack
+
+    return 0;
+}
