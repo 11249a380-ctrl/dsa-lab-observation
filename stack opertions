@@ -1,0 +1,115 @@
+AIM
+To implement a stack data structure and perform basic operations such as:
+PUSH → Insert an element
+POP → Delete the top element
+PEEK / TOP → View the top element
+DISPLAY → Show stack elements
+Stack follows LIFO (Last In First Out) principle.
+
+STACK OPERATIONS & ALGORITHMS
+1. PUSH(x)
+Input: Element x
+Output: Stack after insertion
+Algorithm:
+If TOP == MAX-1, print Overflow
+Else
+Increment TOP
+Set stack[TOP] = x
+
+2. POP()
+Input: None
+Output: Element removed
+Algorithm:
+If TOP == -1, print Underflow
+Else
+Print stack[TOP]
+Decrement TOP
+
+3. PEEK()
+If TOP == -1, print Stack Empty
+Else print stack[TOP]
+
+4. DISPLAY()
+If TOP == -1, print Stack Empty
+Else print elements from TOP to 0
+
+
+PROGRAM 
+  #include <stdio.h>
+#define MAX 5
+
+int stack[MAX];
+int top = -1;
+
+void push(int x) {
+    if (top == MAX - 1) {
+        printf("Stack Overflow!\n");
+    } else {
+        stack[++top] = x;
+        printf("Pushed %d\n", x);
+    }
+}
+
+void pop() {
+    if (top == -1) {
+        printf("Stack Underflow!\n");
+    } else {
+        printf("Popped %d\n", stack[top--]);
+    }
+}
+
+void peek() {
+    if (top == -1) {
+        printf("Stack is Empty!\n");
+    } else {
+        printf("Top element is %d\n", stack[top]);
+    }
+}
+
+void display() {
+    if (top == -1) {
+        printf("Stack is Empty!\n");
+    } else {
+        printf("Stack elements are:\n");
+        for (int i = top; i >= 0; i--)
+            printf("%d ", stack[i]);
+        printf("\n");
+    }
+}
+
+int main() {
+    int choice, value;
+
+    while (1) {
+        printf("\n1.Push 2.Pop 3.Peek 4.Display 5.Exit\nEnter choice: ");
+        scanf("%d", &choice);
+
+        switch(choice) {
+            case 1:
+                printf("Enter value to push: ");
+                scanf("%d", &value);
+                push(value);
+                break;
+
+            case 2:
+                pop();
+                break;
+
+            case 3:
+                peek();
+                break;
+
+            case 4:
+                display();
+                break;
+
+            case 5:
+                return 0;
+
+            default:
+                printf("Invalid Choice!\n");
+        }
+    }
+}
+
+  
