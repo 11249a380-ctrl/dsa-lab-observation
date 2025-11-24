@@ -1,0 +1,198 @@
+AIM
+
+To implement a Doubly Linked List (DLL) where each node contains:
+
+data
+
+pointer to the next node (next)
+
+pointer to the previous node (prev)
+
+and perform operations such as:
+
+Insertion (at beginning, end)
+
+Deletion
+
+Traversal (forward/backward)
+
+Doubly linked lists allow bidirectional traversal unlike singly linked lists.
+
+ALGORITHM
+✔ 1. Insert at Beginning
+
+Create a new node
+
+Set newNode->next = head
+
+Set newNode->prev = NULL
+
+If list not empty, head->prev = newNode
+
+Set head = newNode
+
+2. Insert at End
+
+Create a new node
+
+If list empty, head = newNode
+
+Else traverse to last node
+
+Set last->next = newNode
+
+Set newNode->prev = 
+
+Delete from Beginning
+
+If list empty → print “Underflow”
+
+Else
+
+Move head = head->next
+
+Set head->prev = NULL
+
+Free previous first node
+
+4. Delete from End
+
+If list empty → print “Underflow”
+
+Else traverse to last node
+
+Set last->prev->next = NULL
+
+Free last node
+
+PROGRAM (C Language – Doubly Linked List)
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+    struct Node* prev;
+};
+
+struct Node* head = NULL;
+
+// Insert at Beginning
+void insertBeginning(int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = value;
+    newNode->prev = NULL;
+    newNode->next = head;
+    if (head != NULL)
+        head->prev = newNode;
+    head = newNode;
+    printf("Inserted at beginning\n");
+}
+
+// Insert at End
+void insertEnd(int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = value;
+    newNode->next = NULL;
+
+    if (head == NULL) {
+        newNode->prev = NULL;
+        head = newNode;
+        printf("Inserted at end\n");
+        return;
+    }
+
+    struct Node* temp = head;
+    while (temp->next != NULL)
+        temp = temp->next;
+
+    temp->next = newNode;
+    newNode->prev = temp;
+    printf("Inserted at end\n");
+}
+
+// Delete from Beginning
+void deleteBeginning() {
+    if (head == NULL) {
+        printf("List is empty!\n");
+        return;
+    }
+    struct Node* temp = head;
+    head = head->next;
+    if (head != NULL)
+        head->prev = NULL;
+    free(temp);
+    printf("Deleted from beginning\n");
+}
+
+// Delete from End
+void deleteEnd() {
+    if (head == NULL) {
+        printf("List is empty!\n");
+        return;
+    }
+    struct Node* temp = head;
+    while (temp->next != NULL)
+        temp = temp->next;
+
+    if (temp->prev != NULL)
+        temp->prev->next = NULL;
+    else
+        head = NULL;
+
+    free(temp);
+    printf("Deleted from end\n");
+}
+
+// Display Forward
+void display() {
+    struct Node* temp = head;
+    if (temp == NULL) {
+        printf("List is empty!\n");
+        return;
+    }
+    printf("Doubly Linked List: ");
+    while (temp != NULL) {
+        printf("%d <-> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL\n");
+}
+
+int main() {
+    int choice, value;
+
+    while (1) {
+        printf("\n1.Insert Beginning 2.Insert End 3.Delete Beginning 4.Delete End 5.Display 6.Exit\n");
+        printf("Enter choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter value: ");
+                scanf("%d", &value);
+                insertBeginning(value);
+                break;
+            case 2:
+                printf("Enter value: ");
+                scanf("%d", &value);
+                insertEnd(value);
+                break;
+            case 3:
+                deleteBeginning();
+                break;
+            case 4:
+                deleteEnd();
+                break;
+            case 5:
+                display();
+                break;
+            case 6:
+                return 0;
+            default:
+                printf("Invalid choice!\n");
+        }
+    }
+}
+
+
