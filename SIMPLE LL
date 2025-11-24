@@ -1,0 +1,147 @@
+AIM
+
+To implement a Singly Linked List and perform basic operations like:
+
+Insertion (at beginning, end)
+
+Deletion
+
+Traversal (Display)
+
+A linked list stores data in nodes where each node contains:
+
+data
+
+pointer to next node
+
+ALGORITHM
+✔ 1. Insert at Beginning
+
+Create a new node
+
+Set newNode->next = head
+
+Set head = newNode
+
+2. Insert at End
+
+Create a new node
+
+If list empty → head = newNode
+
+Else traverse to last node
+
+Set last node’s next = newNode
+
+Delete from Beginning
+
+3.If list empty, print "Underflow"
+
+Else
+
+Set temp = head
+
+Move head to head->next
+
+Free temp
+
+ALGORITHM:
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+struct Node* head = NULL;
+
+// Insert at Beginning
+void insertBeginning(int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = value;
+    newNode->next = head;
+    head = newNode;
+    printf("Node inserted at beginning\n");
+}
+
+// Insert at End
+void insertEnd(int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = value;
+    newNode->next = NULL;
+
+    if (head == NULL) {
+        head = newNode;
+    } else {
+        struct Node* temp = head;
+        while (temp->next != NULL)
+            temp = temp->next;
+        temp->next = newNode;
+    }
+    printf("Node inserted at end\n");
+}
+
+// Delete from Beginning
+void deleteBeginning() {
+    if (head == NULL) {
+        printf("List is Empty!\n");
+    } else {
+        struct Node* temp = head;
+        head = head->next;
+        free(temp);
+        printf("Node deleted from beginning\n");
+    }
+}
+
+// Display List
+void display() {
+    if (head == NULL) {
+        printf("List is Empty!\n");
+    } else {
+        struct Node* temp = head;
+        printf("Linked List: ");
+        while (temp != NULL) {
+            printf("%d -> ", temp->data);
+            temp = temp->next;
+        }
+        printf("NULL\n");
+    }
+}
+
+int main() {
+    int choice, value;
+
+    while (1) {
+        printf("\n1.Insert Beginning 2.Insert End 3.Delete Beginning 4.Display 5.Exit\n");
+        printf("Enter choice: ");
+        scanf("%d", &choice);
+
+        switch(choice) {
+            case 1:
+                printf("Enter value: ");
+                scanf("%d", &value);
+                insertBeginning(value);
+                break;
+            case 2:
+                printf("Enter value: ");
+                scanf("%d", &value);
+                insertEnd(value);
+                break;
+            case 3:
+                deleteBeginning();
+                break;
+            case 4:
+                display();
+                break;
+            case 5:
+                return 0;
+            default:
+                printf("Invalid choice!\n");
+        }
+    }
+}
+
+
+
