@@ -1,0 +1,80 @@
+
+AIM
+
+To efficiently search for a given element (key) in a sorted array by repeatedly dividing the search interval into two halves and determining whether to continue in the left half or the right half.
+
+ ALGORITHM – Binary Search (Iterative)
+
+Input: Sorted array A of size n, element key
+Output: Index of key if found, otherwise -1
+
+Start
+
+Set low = 0, high = n - 1
+
+Repeat while low ≤ high:
+a. Compute mid = (low + high) // 2
+b. If A[mid] == key, return mid
+c. Else if A[mid] < key, set low = mid + 1
+d. Else set high = mid - 1
+
+If loop ends, return -1 (key not found)
+
+Stop
+
+Time Complexity:
+
+Best case: O(1)
+
+Worst case: O(log n)
+
+Average case: O(log n)
+
+PROGRAM 
+     #include <stdio.h>
+
+int binarySearch(int arr[], int n, int key) {
+    int low = 0, high = n - 1;
+
+    while (low <= high) {
+        int mid = (low + high) / 2;
+
+        if (arr[mid] == key)
+            return mid; // key found
+
+        else if (arr[mid] < key)
+            low = mid + 1;
+
+        else
+            high = mid - 1;
+    }
+
+    return -1; // key not found
+}
+
+int main() {
+    int n, key;
+
+    printf("Enter size of array: ");
+    scanf("%d", &n);
+
+    int arr[n];
+    printf("Enter %d sorted elements:\n", n);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    printf("Enter element to search: ");
+    scanf("%d", &key);
+
+    int result = binarySearch(arr, n, key);
+
+    if (result == -1)
+        printf("Element not found.\n");
+    else
+        printf("Element found at index %d.\n", result);
+
+    return 0;
+}
+
+
