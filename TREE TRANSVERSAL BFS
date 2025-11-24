@@ -1,0 +1,102 @@
+ AIM
+"To implement tree traversal using Breadth-First Search (BFS) or Level Order Traversal 
+          and display the nodes level by level."
+PROGRAM
+#include <stdio.h>
+#include <stdlib.h>
+
+// Define structure of a tree node
+struct Node {
+    int data;
+    struct Node* left;
+    struct Node* right;
+};
+
+// Define structure for queue
+struct Queue {
+    struct Node* data[100]; // queue array
+    int front, rear;
+};
+
+// Function to initialize the queue
+void initQueue(struct Queue* q) {
+    q->front = -1;
+    q->rear = -1;
+}
+
+// Function to check if queue is empty
+int isEmpty(struct Queue* q) {
+    return q->front == -1;
+}
+
+// Function to enqueue a node
+void enqueue(struct Queue* q, struct Node* node) {
+    if (q->rear == 99) {
+        printf("Queue overflow\n");
+        return;
+    }
+    if (isEmpty(q)) q->front = 0;
+    q->rear++;
+    q->data[q->rear] = node;
+}
+
+// Function to dequeue a node
+struct Node* dequeue(struct Queue* q) {
+    if (isEmpty(q)) {
+        printf("Queue underflow\n");
+        return NULL;
+    }
+    struct Node* node = q->data[q->front];
+    if (q->front == q->rear) { // last element
+        q->front = q->rear = -1;
+    } else {
+        q->front++;
+    }
+    return node;
+}
+
+// Function to create a new tree node
+struct Node* createNode(int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = value;
+    newNode->left = newNode->right = NULL;
+    return newNode;
+}
+
+// Function for BFS / Level Order Traversal
+void levelOrder(struct Node* root) {
+    if (root == NULL) return;
+
+    struct Queue q;
+    initQueue(&q);
+    enqueue(&q, root);
+
+    printf("Level Order Traversal: ");
+    while (!isEmpty(&q)) {
+        struct Node* current = dequeue(&q);
+        printf("%d ", current->data);
+
+        if (current->left != NULL)
+            enqueue(&q, current->left);
+        if (current->right != NULL)
+            enqueue(&q, current->right);
+    }
+    printf("\n");
+}
+
+// Main function
+int main() {
+    // Creating a simple tree
+    struct Node* root = createNode(1);
+    root->left = createNode(2);
+    root->right = createNode(3);
+    root->left->left = createNode(4);
+    root->left->right = createNode(5);
+
+    levelOrder(root);
+
+    return 0;
+}
+
+
+
